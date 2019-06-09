@@ -24,3 +24,20 @@ export const AcornButton = styled.button`
   transform: translate(-50%, 0);
   width: 150px;
 `;
+
+export const DemoButton = styled.button`
+  color: white;
+  display: inline-block;
+  position: absolute;
+  top: 10px
+  left: 5px;
+  background: #3C64F4;
+  border-radius: 4px;
+  border: none;
+  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 28px;
+  width: 150px;
+`;
