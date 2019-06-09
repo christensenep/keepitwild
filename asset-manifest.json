@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/keepitwild/static/css/main.8fb9ae17.chunk.css",
-    "main.js": "/keepitwild/static/js/main.1e570aa2.chunk.js",
-    "main.js.map": "/keepitwild/static/js/main.1e570aa2.chunk.js.map",
+    "main.js": "/keepitwild/static/js/main.88895c8e.chunk.js",
+    "main.js.map": "/keepitwild/static/js/main.88895c8e.chunk.js.map",
     "runtime~main.js": "/keepitwild/static/js/runtime~main.07254976.js",
     "runtime~main.js.map": "/keepitwild/static/js/runtime~main.07254976.js.map",
     "static/js/2.826ee7c8.chunk.js": "/keepitwild/static/js/2.826ee7c8.chunk.js",
     "static/js/2.826ee7c8.chunk.js.map": "/keepitwild/static/js/2.826ee7c8.chunk.js.map",
     "index.html": "/keepitwild/index.html",
-    "precache-manifest.60c81e53b99334b56dc34d2f2dcc7384.js": "/keepitwild/precache-manifest.60c81e53b99334b56dc34d2f2dcc7384.js",
+    "precache-manifest.c70f7b64976774cccc1bfc306aa1c04d.js": "/keepitwild/precache-manifest.c70f7b64976774cccc1bfc306aa1c04d.js",
     "service-worker.js": "/keepitwild/service-worker.js",
     "static/css/main.8fb9ae17.chunk.css.map": "/keepitwild/static/css/main.8fb9ae17.chunk.css.map"
   }
