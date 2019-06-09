@@ -6,7 +6,7 @@ import * as constants from './constants';
 import './App.css';
 import Header from './Header/Header';
 import { mapStyles } from './mapStyles';
-import { StyledApp } from './styled';
+import { StyledApp, AcornButton } from './styled';
 
 class App extends React.Component {
   state = {
@@ -30,15 +30,17 @@ class App extends React.Component {
   };
 
   movedMap = () => {
+    let activeMarker = undefined;
     constants.treasures.forEach((treasure, index) => {
       if (this.isCloseEnough(treasure)) {
         this.markers[index].setAnimation(window.google.maps.Animation.BOUNCE);
+        activeMarker = index;
       } else {
         this.markers[index].setAnimation(null);
       }
     });
 
-    this.setState({ location: { lng: this.map.getCenter().lng(), lat: this.map.getCenter().lat() } });
+    this.setState({ location: { lng: this.map.getCenter().lng(), lat: this.map.getCenter().lat() }, activeMarker });
   };
 
   isCloseEnough = (treasure) => {
@@ -57,8 +59,13 @@ class App extends React.Component {
 
     if (!this.isCloseEnough(constants.treasures[id])) {
       this.setState({infoWindowOpen: id});
-    } else {
+    }
+  };
+
+  clickButton = () => {
+    if (this.state.activeMarker && !this.state.clicked) {
       window.location = process.env.REACT_APP_SERVER_URL || 'http://6d84f684.ngrok.io';
+      this.setState({clicked: true});
     }
   };
 
@@ -67,7 +74,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { location, infoWindowOpen } = this.state;
+    const { activeMarker, clicked, location, infoWindowOpen } = this.state;
 
     return (
       <StyledApp>
@@ -149,6 +156,13 @@ class App extends React.Component {
             </InfoWindow>
           }
 
+          {activeMarker !== undefined && !clicked &&
+            <AcornButton
+              onClick={this.clickButton}
+            >
+              Collect Acorn!
+            </AcornButton>
+          }
         </GoogleMap>
       </StyledApp>
     );
