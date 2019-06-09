@@ -1,6 +1,7 @@
 import React from 'react';
 import { geolocated } from 'react-geolocated';
 import { GoogleMap, Marker, Polyline, InfoWindow, Circle } from '@react-google-maps/api'
+import ReactQueryParams from 'react-query-params';
 
 import * as constants from './constants';
 import './App.css';
@@ -8,7 +9,7 @@ import Header from './Header/Header';
 import { mapStyles } from './mapStyles';
 import { StyledApp, AcornButton, DemoButton } from './styled';
 
-class App extends React.Component {
+class App extends ReactQueryParams {
   state = {
     location: {
       lat: constants.center.lat,
@@ -16,6 +17,7 @@ class App extends React.Component {
     },
     infoWindowOpen: null,
     demoActive: false,
+    consumedAcorns: [],
   };
 
   markers = {};
@@ -29,10 +31,15 @@ class App extends React.Component {
       }
 
       this.setState({ location });
+      this.updateProximity();
     }
   }
 
   componentDidMount(){
+    if (this.queryParams.treasures !== undefined) {
+      const consumedAcorns = this.queryParams.treasures.split(',').map((str) => parseInt(str));
+      this.setState({consumedAcorns});
+    }
   }
 
   mapLoaded = (map) => {
@@ -43,19 +50,28 @@ class App extends React.Component {
     }
   };
 
-  movedMap = () => {
-    if (this.state.demoActive) {
+  updateProximity = () => {
+    if (this.map && window.google.maps.geometry) {
       let activeMarker = undefined;
       constants.treasures.forEach((treasure, index) => {
-        if (this.isCloseEnough(treasure)) {
-          this.markers[index].setAnimation(window.google.maps.Animation.BOUNCE);
-          activeMarker = index;
-        } else {
-          this.markers[index].setAnimation(null);
+        if (!this.state.consumedAcorns.includes(index)) {
+          if (this.isCloseEnough(treasure)) {
+            this.markers[index].setAnimation(window.google.maps.Animation.BOUNCE);
+            activeMarker = index;
+          } else {
+            this.markers[index].setAnimation(null);
+          }
         }
       });
+      this.setState({activeMarker});
+    }
+  };
 
-      this.setState({location: {lng: this.map.getCenter().lng(), lat: this.map.getCenter().lat()}, activeMarker});
+  movedMap = () => {
+    if (this.state.demoActive) {
+      this.setState({location: {lng: this.map.getCenter().lng(), lat: this.map.getCenter().lat()}});
+
+      this.updateProximity();
     }
   };
 
@@ -79,8 +95,10 @@ class App extends React.Component {
   };
 
   clickButton = () => {
-    if (this.state.activeMarker && !this.state.clicked) {
-      window.location = process.env.REACT_APP_SERVER_URL || 'http://6d84f684.ngrok.io';
+    const treasures = [...this.state.consumedAcorns];
+    treasures.push(this.state.activeMarker);
+    if (this.state.activeMarker !== undefined && !this.state.clicked) {
+      window.location = (process.env.REACT_APP_SERVER_URL || 'http://6d84f684.ngrok.io') + '?treasures=' + treasures.join();
       this.setState({clicked: true});
     }
   };
@@ -100,7 +118,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { activeMarker, clicked, location, infoWindowOpen } = this.state;
+    const { activeMarker, clicked, location, infoWindowOpen, consumedAcorns} = this.state;
 
     return (
       <StyledApp>
@@ -139,7 +157,8 @@ class App extends React.Component {
             position={constants.finish}
           />
 
-          {constants.treasures.map((treasure, index) => (
+          {constants.treasures
+            .map((treasure, index) => (
             <Marker
               animation={window.google.maps.Animation.DROP}
               key={index}
@@ -148,6 +167,7 @@ class App extends React.Component {
                 url: 'acorn.svg',
                 anchor: { x: 15, y: 15 },
               }}
+              visible={!consumedAcorns.includes(index)}
               onClick={() => this.clickTreasure(index)}
               onLoad={((marker) => this.markerLoaded(index, marker))}
             />
