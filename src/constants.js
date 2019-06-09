@@ -1,0 +1,49 @@
+import { decode } from "google-maps-polyutil/lib/PolyUtil";
+
+export const center = {
+  lat: 37.9233533,
+  lng: -122.6288527,
+};
+
+export const start ={
+  lat: 37.9365183,
+  lng: -122.6380409,
+};
+
+export const finish = {
+  lat: 37.9107966,
+  lng: -122.6126991,
+};
+
+export const treasures = [
+  {
+    position: {
+      lat: 37.927785,
+      lng: -122.633525,
+    },
+  },
+  {
+    position: {
+      lat: 37.924491,
+      lng: -122.630962,
+    },
+  },
+  {
+    position: {
+      lat: 37.916264,
+      lng: -122.622794,
+    },
+  },
+];
+
+export const path = decode("gnpfFvvokVEGBG@OE]C]@ML]RIL@RJ\\LXDNDPJLHPBJU@SDIRQZ[NWBc@Ja@NYTe@^IRAFGFG^AZBj@EDCPGHMV?`AOLBj@ETGRIH@LGBBHDFAH?J[FAB^PTB?@[HWNIFB@HNGNCLKJKDDIVANERDZFRTg@LOJUb@e@TQRSJITGTS?KIKKE?GFCFAP@BCCMJCHIPQLKRIXC\\C\\YRW\\i@X_@RGn@LPD^IREbA]`@Of@]VId@?^Fx@Bf@Az@IV?^Hb@@h@@^D`@B`A@d@[RQLS@e@N_@F_@Dk@Nu@Rg@F[?KEUNEJEFIJENKLMPIHKR]Ha@?YECGDCIFKC?GFEEKBCBCCDO@QPa@R]BW?SOe@@[PU@i@A[BIJEEI_@CI^ENCFCAESGQCi@DMPCNELA`@c@PY\\]PI^SJGLALIDMPe@BSJU@k@Dw@Gg@A]EO@c@HKHCb@M\\?N@t@BVCNGVa@Vk@T]RABPPZRHH?^M\\EVOVCPERMZQNOHQJMNUTI\\?RIf@GJE`@IJAHIf@KZ?H?TGXKJOLOTMHWNQTKLOLEd@WRSNQJG^G^MTGX@ZAFICKF]BWDWA[DK^AVa@ZUTQJCJEH@PFLALMHOLGV?LAHJRETK^Q~@e@v@Kp@WRWJERUD?HIF[J]@YCaA@SEQ?ODi@@c@Jc@J[H[BYJU\\[NSHURSPQAUD_@J[L[NUFMCIMKCMBGRe@@o@@g@To@Fe@Zm@R]NMJYVc@RUDONSTGf@UNIBOHQ^u@Tg@V{@F_@@a@AQGa@U]WOQ[GWCq@Dk@N_@hAy@bA_@l@]AE")
+  .map((elem) => ({ lat: elem.latitude, lng: elem.longitude }));
+
+export const treasureIcon = {
+  anchor: { x: 11, y: 11 },
+  path: "M15.5 0L0 8.75008V26.25L15.5 35L31 26.25V8.75008L15.5 0ZM2.93697 18.665C2.27946 18.665 1.74652 18.1434 1.74652 17.5C1.74652 16.8567 2.27946 16.335 2.93697 16.335C3.59455 16.335 4.12746 16.8567 4.12746 17.5C4.12746 18.1434 3.59455 18.665 2.93697 18.665ZM16.8251 23.4101V27.5753H14.2953V23.4101H8.24608L15.5406 7.47891L22.8352 23.4101H16.8251ZM28.1641 18.665C27.5066 18.665 26.9736 18.1434 26.9736 17.5C26.9736 16.8567 27.5066 16.335 28.1641 16.335C28.8216 16.335 29.3546 16.8567 29.3546 17.5C29.3546 18.1434 28.8216 18.665 28.1641 18.665Z",
+  fillColor: '#3C64F4',
+  fillOpacity: 1,
+  strokeColor: 'white',
+  scale: 1
+};
